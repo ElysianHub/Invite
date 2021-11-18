@@ -1,0 +1,33 @@
+local ExploitRequest = request or http_request or syn and syn.request
+local HS = game:GetService("HttpService")
+local function invite(answer)
+    print(answer)
+    if answer == "Yes" then
+ExploitRequest({
+    Url = "http://127.0.0.1:6463/rpc?v=1",
+    Method = "POST",
+    Headers = {
+        ["Content-Type"] = "application/json",
+        ["Origin"] = "https://discord.com"
+    },
+    Body = HS:JSONEncode({
+        cmd = "INVITE_BROWSER",
+        args = {
+            code = "TdkTtkD8C4",
+        },
+        nonce = HS:GenerateGUID(false)
+    }),
+})
+    end
+end
+local event = Instance.new("BindableFunction")
+event.OnInvoke = invite
+game.StarterGui:SetCore("SendNotification",  {
+ Title = "Discord Invite",
+ Text = "Would you like to join our discord server?";
+ Icon = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fseeklogo.com%2Fvector-logo%2F404002%2Fdiscord-icon-new-2021&psig=AOvVaw0fKk6n2jy5z6FQEoq8dw9T&ust=1637325271626000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJDIgI72ofQCFQAAAAAdAAAAABAD";
+ Duration = 5;
+ Button1 = "Yes";
+ Button2 = "No";
+ Callback = event;
+})
